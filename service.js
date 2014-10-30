@@ -8,6 +8,8 @@ var html = fs.readFileSync(path.join(process.cwd(), 'src', 'index.html'), {
   encoding: 'utf8'
 });
 
+app.use('/scripts', express.static(path.join(process.cwd(), 'bower_components')));
+
 app.get('/', function(req, res) {
   res.send(html);
 });
