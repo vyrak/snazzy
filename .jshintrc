@@ -12,6 +12,8 @@
   "globals": {
     "console": false,
     "process": false,
+    "module": false,
+    "exports": false,
     "require": false
   }
 }
