@@ -4,14 +4,15 @@ var express = require('express');
 
 var app = express();
 var port = parseInt(process.env.PORT, 10) || 8001;
-var html = fs.readFileSync(path.join(process.cwd(), 'src', 'index.html'), {
-  encoding: 'utf8'
-});
+
+function html() {
+  return fs.readFileSync(path.join(process.cwd(), 'src', 'index.html'), { encoding: 'utf8' });
+}
 
 app.use('/scripts', express.static(path.join(process.cwd(), 'bower_components')));
 
 app.get('/', function(req, res) {
-  res.send(html);
+  res.send(html());
 });
 
 var server = app.listen(port, function() {
