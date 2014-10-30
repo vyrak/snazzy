@@ -6,7 +6,8 @@
     "express": "",
     "gulp": "",
     "gulp-util": "",
-    "chance": "^0.6.1"
+    "gulp-webpack": "^1.0.0",
+    "gulp-rename": "^1.2.0"
   },
   "description": "Generate random data points",
   "main": "gulpfile.js",
