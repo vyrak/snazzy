@@ -1,0 +1,22 @@
+{
+  "name": "snazzy",
+  "version": "0.0.0",
+  "authors": [
+    "vyrak bunleang <vyrak.bunleang@gmail.com>"
+  ],
+  "description": "RxJS + React Dashboard",
+  "main": "src/js/main.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.0",
+    "rxjs": "~2.3.14"
+  }
+}
