@@ -1,8 +1,17 @@
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 var gutil = require('gulp-util');
+var webpack = require('gulp-webpack');
 var child_process = require('child_process');
 
 var child;
+
+gulp.task('webpack', function() {
+  return gulp.src('src/scripts/app.js')
+    .pipe(webpack({context: process.cwd()}))
+    .pipe(rename('app.js'))
+    .pipe(gulp.dest('public/scripts'));
+});
 
 gulp.task('express', function() {
   if(child) {
@@ -29,6 +38,7 @@ gulp.task('express', function() {
   });
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['webpack', 'express'], function() {
+  gulp.watch(['src/scripts/**/*.js', 'bower_components/**/*.js'], ['webpack']);
   gulp.watch(['service.js'], ['express']);
 });

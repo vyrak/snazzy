@@ -6,31 +6,6 @@
   <body>
     <h1>What The Fun</h1>
     <div id="container"></div>
-    <script type="text/javascript" src="/scripts/react/react.js"></script>
-    <script type="text/javascript" src="/scripts/rxjs/dist/rx.all.js"></script>
-    <script type="text/javascript">
-      (function() {
-        var count = 0, CounterBox;
-
-        function pulse(func) {
-          func();
-          setTimeout(function() {
-            pulse(func);
-          }, 3000);
-        }
-
-        CounterBox = React.createClass({
-          displayName: 'CounterBox',
-          render: function() {
-            return React.createElement('div', {className: "counterBox"}, "Count: " + count);
-          }
-        });
-
-        pulse(function render() {
-          count++;
-          React.render(React.createElement(CounterBox, null), document.getElementById("container"));
-        });
-      })();
-    </script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
   </body>
 </html>

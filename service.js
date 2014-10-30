@@ -9,7 +9,7 @@ function html() {
   return fs.readFileSync(path.join(process.cwd(), 'src', 'index.html'), { encoding: 'utf8' });
 }
 
-app.use('/scripts', express.static(path.join(process.cwd(), 'bower_components')));
+app.use('/', express.static(path.join(process.cwd(), 'public')));
 
 app.get('/', function(req, res) {
   res.send(html());
