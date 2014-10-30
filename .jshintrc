@@ -1,0 +1,17 @@
+{
+  "undef": true,
+  "unused": true,
+  "browser": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "latedef": true,
+  "laxcomma": true,
+  "quotmark": "single",
+  "trailing": true,
+  "curly": true,
+  "globals": {
+    "console": false,
+    "process": false,
+    "require": false
+  }
+}
