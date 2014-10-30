@@ -6,7 +6,7 @@
   "indent": 2,
   "latedef": true,
   "laxcomma": true,
-  "quotmark": "single",
+  "quotmark": "double",
   "trailing": true,
   "curly": true,
   "globals": {
