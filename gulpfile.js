@@ -7,8 +7,14 @@ var child_process = require('child_process');
 var child;
 
 gulp.task('webpack', function() {
-  return gulp.src('src/scripts/app.js')
-    .pipe(webpack({context: process.cwd()}))
+  return gulp.src('src/scripts/app.jsx')
+    .pipe(webpack({
+      module: {
+        loaders: [
+          {test: /\.jsx$/, loader: 'jsx-loader'}
+        ]
+      }
+    }))
     .pipe(rename('app.js'))
     .pipe(gulp.dest('public/scripts'));
 });
@@ -39,6 +45,6 @@ gulp.task('express', function() {
 });
 
 gulp.task('watch', ['webpack', 'express'], function() {
-  gulp.watch(['src/scripts/**/*.js', 'bower_components/**/*.js'], ['webpack']);
+  gulp.watch(['src/scripts/**/*.jsx', 'bower_components/**/*.js'], ['webpack']);
   gulp.watch(['service.js'], ['express']);
 });
