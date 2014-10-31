@@ -1,24 +1,13 @@
 /** @jsx React.DOM */
 
-var CounterBox
-  , React = require("../../bower_components/react/react.js")
-  , utils = require("./utils.js");
+var React = require("react/react.js");
+var utils = require("./utils.js");
+var CounterWidget = require("./components/counter-widget.jsx");
 
 var pulse = utils.pulse();
-var count = 0, CounterBox;
-
-CounterBox = React.createClass({
-  displayName: "CounterBox",
-  render: function() {
-    return (
-      <div className="counterBox">
-        <span>{this.props.label}</span>: <span>{this.props.count}</span>
-      </div>
-    );
-  }
-});
+var count = 0;
 
 pulse(function render() {
   count++;
-  React.render(<CounterBox label="Woot" count={count}/>, document.getElementById("container"));
+  React.render(<CounterWidget />, document.getElementById("container"));
 });
