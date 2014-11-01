@@ -3,7 +3,6 @@ var gulp = require("gulp");
 var rename = require("gulp-rename");
 var gutil = require("gulp-util");
 var webpack = require("gulp-webpack");
-var path = require("path");
 
 var child;
 
