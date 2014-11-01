@@ -10,7 +10,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <label>
-        Label: <input type="text" ref="labelTextInput" defaultValue={this.props.value} onChange={this.handleLabelChange} />
+        Label: <input type="text" ref="labelTextInput" defaultValue={this.props.label} onChange={this.handleLabelChange} />
       </label>
     );
   }
