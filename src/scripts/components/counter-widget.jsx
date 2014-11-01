@@ -12,11 +12,14 @@ module.exports = React.createClass({
       count: 0
     };
   },
-  handleLabelChange: function(label) {
-    this.setState({
-      label: label,
-      count: 0
+  componentDidMount: function() {
+    var self = this;
+    this.props.stream.subscribe(function() {
+      self.setState({count: self.state.count + 1});
     });
+  },
+  handleLabelChange: function(label) {
+    this.setState({label: label});
   },
   render: function() {
     return (

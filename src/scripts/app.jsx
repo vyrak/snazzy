@@ -1,13 +1,9 @@
 /** @jsx React.DOM */
 
 var React = require("react/react.js");
-var utils = require("./utils.js");
+var Rx = require("rxjs/dist/rx.all.js");
 var CounterWidget = require("./components/counter-widget.jsx");
 
-var pulse = utils.pulse();
-var count = 0;
+var stream = Rx.Observable.interval(1000);
 
-pulse(function render() {
-  count++;
-  React.render(<CounterWidget />, document.getElementById("container"));
-});
+React.render(<CounterWidget stream={stream} />, document.getElementById("container"));
