@@ -10,6 +10,7 @@ function html() {
 }
 
 app.use("/", express.static(path.join(process.cwd(), "public")));
+app.use("/styles", express.static(path.join(process.cwd(), "bower_components")));
 
 app.get("/", function(req, res) {
   res.send(html());
