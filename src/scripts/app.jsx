@@ -7,5 +7,13 @@ var DashboardEditor = require("./components/dashboard-editor.jsx");
 
 var stream = Rx.Observable.interval(1000);
 
-React.render(<CounterWidget stream={stream} />, document.getElementById("container"));
-React.render(<DashboardEditor />, document.getElementById("bs"));
+function createContainer() {
+  var container = document.createElement("div");
+  container.className = "container";
+  return container;
+}
+function appendContainer() {
+  return document.body.appendChild(createContainer());
+}
+React.render(<CounterWidget stream={stream} />, appendContainer());
+React.render(<DashboardEditor stream={stream} />, appendContainer());
