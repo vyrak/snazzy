@@ -54,15 +54,7 @@ gulp.task("express", function() {
   });
 });
 
-gulp.task("karma", function(done) {
-  karma.server.start({
-    configFile: path.join(__dirname, "karma.conf.js"),
-    singleRun: true
-  }, done);
-});
-
 gulp.task("watch", ["webpack", "express"], function() {
   gulp.watch(["src/scripts/**/*.jsx", "bower_components/**/*.js"], ["webpack"]);
-  gulp.watch(["src/scripts/**/*.jsx", "test/scripts/**/*.js"], ["karma"]);
   gulp.watch(["service.js"], ["express"]);
 });
