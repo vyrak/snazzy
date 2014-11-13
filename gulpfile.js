@@ -3,6 +3,8 @@ var gulp = require("gulp");
 var rename = require("gulp-rename");
 var gutil = require("gulp-util");
 var webpack = require("gulp-webpack");
+var path = require("path");
+var karma = require("karma");
 
 var child;
 
@@ -18,6 +20,7 @@ gulp.task("webpack", function() {
   return gulp.src("src/scripts/app.jsx")
     .pipe(webpack({
       resolve: {
+        root: __dirname,
         modulesDirectories: ["node_modules", "bower_components"]
       },
       module: {
@@ -31,7 +34,7 @@ gulp.task("webpack", function() {
 });
 
 gulp.task("express", function() {
-  if(child) {
+  if (child) {
     child.kill();
   }
   child = child_process.spawn(process.execPath, ["./service.js"], {
@@ -44,14 +47,22 @@ gulp.task("express", function() {
   child.stderr.on("data", stderr);
 
   process.on("uncaughtException", function(err) {
-    if(child) {
+    if (child) {
       child.kill();
     }
     throw new Error(err);
   });
 });
 
+gulp.task("karma", function(done) {
+  karma.server.start({
+    configFile: path.join(__dirname, "karma.conf.js"),
+    singleRun: true
+  }, done);
+});
+
 gulp.task("watch", ["webpack", "express"], function() {
   gulp.watch(["src/scripts/**/*.jsx", "bower_components/**/*.js"], ["webpack"]);
+  gulp.watch(["src/scripts/**/*.jsx", "test/scripts/**/*.js"], ["karma"]);
   gulp.watch(["service.js"], ["express"]);
 });
