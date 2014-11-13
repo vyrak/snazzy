@@ -10,6 +10,7 @@
   "trailing": true,
   "curly": true,
   "globals": {
+    "__dirname": false,
     "console": false,
     "process": false,
     "module": false,
