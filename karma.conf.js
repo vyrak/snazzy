@@ -37,6 +37,7 @@ module.exports = function(config) {
 
     webpack: {
       resolve: {
+        root: __dirname,
         modulesDirectories: ["node_modules", "bower_components"]
       },
       module: {
