@@ -15,7 +15,8 @@ module.exports = function(config) {
     plugins: [
       require("karma-webpack"),
       require("karma-jasmine"),
-      require("karma-phantomjs-launcher")
+      require("karma-phantomjs-launcher"),
+      require("karma-sourcemap-loader")
     ],
 
 
@@ -31,7 +32,7 @@ module.exports = function(config) {
 
 
     preprocessors: {
-      "test/scripts/index.js": ["webpack"],
+      "test/scripts/index.js": ["webpack", "sourcemap"],
     },
 
 
@@ -44,7 +45,8 @@ module.exports = function(config) {
         loaders: [
           {test: /\.jsx$/, loader: "jsx-loader"}
         ]
-      }
+      },
+      devtool: "inline-source-map"
     },
 
 
