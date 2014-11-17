@@ -3,8 +3,12 @@ var gulp = require("gulp");
 var rename = require("gulp-rename");
 var gutil = require("gulp-util");
 var webpack = require("gulp-webpack");
+var WebpackDevServer = require("webpack-dev-server");
+var webpackBaseConfig = require("./webpack.config");
 
 var child;
+var servicePort = parseInt(process.env.PORT, 10) || 8001;
+var webpackDevServerPort = servicePort + 10;
 
 function stdout(data) {
   gutil.log(gutil.colors.bgCyan(gutil.colors.black(data.toString().trim())));
@@ -14,21 +18,35 @@ function stderr(data) {
   gutil.log(gutil.colors.bgRed(gutil.colors.white(data.toString().trim())));
 }
 
+gulp.task("default", ["watch"]);
+
 gulp.task("webpack", function() {
+  var config = Object.create(webpackBaseConfig);
   return gulp.src("src/scripts/app.jsx")
-    .pipe(webpack({
-      resolve: {
-        root: __dirname,
-        modulesDirectories: ["node_modules", "bower_components"]
-      },
-      module: {
-        loaders: [
-          {test: /\.jsx$/, loader: "jsx-loader"}
-        ]
-      }
-    }))
+    .pipe(webpack(config))
     .pipe(rename("app.js"))
     .pipe(gulp.dest("public/scripts"));
+});
+
+gulp.task("webpack-dev-server", function(callback) {
+  var config = Object.create(webpackBaseConfig);
+  var serverOptions = {
+    hot: true,
+    publicPath: config.output.publicPath,
+    stats: { colors: true }
+  };
+
+  config.debug = true;
+  config.devtool = "eval";
+  config.entry = { app: "./src/scripts/app.jsx" };
+
+  new WebpackDevServer(require("webpack")(config), serverOptions).listen(webpackDevServerPort, "localhost", function(err) {
+    if (err) {
+      throw new gutil.PluginError("webpack-dev-server", err);
+    }
+    gutil.log("[webpack-dev-server]", "http://localhost:" + webpackDevServerPort + "/webpack-dev-server");
+    callback();
+  });
 });
 
 gulp.task("express", function() {
@@ -38,7 +56,7 @@ gulp.task("express", function() {
   child = child_process.spawn(process.execPath, ["./service.js"], {
     env: {
       NODE_ENV: process.env.NODE_ENV,
-      PORT: process.env.PORT
+      PORT: servicePort
     }
   });
   child.stdout.on("data", stdout);
@@ -52,7 +70,6 @@ gulp.task("express", function() {
   });
 });
 
-gulp.task("watch", ["webpack", "express"], function() {
-  gulp.watch(["src/scripts/**/*.jsx", "bower_components/**/*.js"], ["webpack"]);
+gulp.task("watch", ["webpack-dev-server", "express"], function() {
   gulp.watch(["service.js"], ["express"]);
 });

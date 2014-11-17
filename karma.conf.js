@@ -1,5 +1,8 @@
 // Karma configuration
 // Generated on Wed Nov 05 2014 21:39:10 GMT-0700 (MST)
+var webpackBaseConfig = require("./webpack.config");
+var webpackConfig = Object.create(webpackBaseConfig);
+webpackConfig.devtool = "inline-source-map";
 
 module.exports = function(config) {
   config.set({
@@ -36,18 +39,7 @@ module.exports = function(config) {
     },
 
 
-    webpack: {
-      resolve: {
-        root: __dirname,
-        modulesDirectories: ["node_modules", "bower_components"]
-      },
-      module: {
-        loaders: [
-          {test: /\.jsx$/, loader: "jsx-loader"}
-        ]
-      },
-      devtool: "inline-source-map"
-    },
+    webpack: webpackConfig,
 
 
     webpackServer: {
